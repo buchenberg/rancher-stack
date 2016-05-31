@@ -1,0 +1,27 @@
+web:
+  image: tomcat:latest
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  links:
+    - database
+  stdin_open: true
+  volumes:
+    - app:/usr/local/tomcat/webapps/app
+database:
+  tty: true
+  image: mysql:latest
+  ports:
+    - 3306:3306
+  environment:
+    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_DATABASE=mydata
+  stdin_open: true
+load-balancer:
+  ports:
+    - 80:8080
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+    - web
+  stdin_open: true

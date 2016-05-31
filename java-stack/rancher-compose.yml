@@ -1,0 +1,8 @@
+web:
+  scale: 1
+load-balancer:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+database:
+  scale: 1
